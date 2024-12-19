@@ -10,7 +10,6 @@ import {
 import logo from "../../assets/logo.png";
 import CanvasLoader from "../Loader";
 
-
 const Ball = () => {
     const [decal] = useTexture([logo]);
 
