@@ -9,16 +9,6 @@ const App = () => {
   const [isCompatible, setIsCompatible] = useState(true);
   const [countdown, setCountdown] = useState(15);
 
-  useEffect(() => {
-    if (!isCompatible) {
-      const intervalId = setInterval(() => {
-        setCountdown(prevCountdown => prevCountdown - 1);
-      }, 1000);
-
-      return () => clearInterval(intervalId);
-    }
-  }, [isCompatible])
-
   if (!isCompatible) {
     return (
 
@@ -28,7 +18,6 @@ const App = () => {
           variants={slideIn("right", "tween", 0.2, 1)}
           className='xl:flex-1 xl:h-auto md:h-[550px] h-[350px] -mb-10 cursor-grab'
         >
-          {/* <EarthCanvas /> */}
           <LogoCanvas />
         </motion.div>
         <motion.div className='flex flex-col justify-center items-center backdrop-blur-sm  space-y-4 py-6 -mt-2  mx-6  h-full bg-gradient-to-br from-[#fcfcfc33]  rounded-lg border border-gray-500'>
