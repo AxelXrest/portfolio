@@ -1,6 +1,6 @@
 # My Portfolio Website
 
-![Portfolio](https://i.imgur.com/a/tjlPsKu)
+![Portfolio](https://i.imgur.com/HdvS6Nh.png)
 
 Welcome to my captivating portfolio website project!
 
