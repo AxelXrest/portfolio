@@ -2,22 +2,19 @@ import {
     mobile,
     monitor,
     web,
-    javascript,
-    html,
-    css,
+    host,
+    aaPanel,
     reactjs,
-    figma,
     flutter,
-    dart,
-    java,
     php,
-    c,
+    nginx,
     linux,
     firebase,
     git,
     vedasLogo,
     flexihireLogo,
     pizzbizzLogo,
+    dopplerLogo,
     flexihire,
     pizzbizz,
     astralArch,
@@ -57,24 +54,20 @@ const services = [
         title: "Mobile App Developer",
         icon: mobile,
     },
+    {
+        title: "Web Hosting",
+        icon: host,
+    },
 ];
 
 const technologies = [
-    {
-        name: "CSS 3",
-        icon: css,
-    },
-    {
-        name: "JavaScript",
-        icon: javascript,
-    },
     {
         name: "React JS",
         icon: reactjs,
     },
     {
-        name: "figma",
-        icon: figma,
+        name: "aaPanel",
+        icon: aaPanel,
     },
     {
         name: "Flutter",
@@ -93,24 +86,12 @@ const technologies = [
         icon: linux,
     },
     {
-        name: "Dart",
-        icon: dart,
-    },
-    {
-        name: "Java",
-        icon: java,
-    },
-    {
         name: "PHP",
         icon: php,
     },
     {
-        name: "C Programming",
-        icon: c,
-    },
-    {
-        name: "HTML 5",
-        icon: html,
+        name: "NGINX",
+        icon: nginx,
     },
 ];
 
@@ -118,7 +99,7 @@ const experiences = [
     {
         title: "React Developer",
         company_name: "FlexiHire",
-        icon: flexihireLogo, // Replace with the actual icon
+        icon: flexihireLogo,
         iconBg: "#f0f0f0",
         date: "2022 - 2023",
         points: [
@@ -130,7 +111,7 @@ const experiences = [
     {
         title: "IT Intern",
         company_name: "Vedas College",
-        icon: vedasLogo, // Replace with the actual icon
+        icon: vedasLogo,
         iconBg: "#f0f0f0",
         date: "2022 - 2024",
         points: [
@@ -142,13 +123,26 @@ const experiences = [
     {
         title: "Flutter Developer",
         company_name: "PizzBizz",
-        icon: pizzbizzLogo, // Replace with the actual icon
+        icon: pizzbizzLogo,
         iconBg: "#f0f0f0",
         date: "2024",
         points: [
             "Developed the PizzBizz mobile app using Flutter, focusing on a dynamic UI and real-time data handling with Firebase.",
             "Implemented features such as pizza customization, social sharing, and in-app payments using eSewa integration.",
             "Led the app's design and development, combining pizza customization with a unique social engagement platform.",
+        ],
+    },
+    {
+        title: "Full Stack Developer",
+        company_name: "Doppler Trade PVT LTD",
+        icon: dopplerLogo,
+        iconBg: "#f0f0f0",
+        date: "2025 - Present",
+        points: [
+            "Worked on an Internet Service Provider (ISP) platform that delivers internet access via hotspot vouchers.",
+            "Contributed to an Internet Service Provider (ISP) platform using FreeRADIUS to manage internet access through hotspot vouchers.",
+            "Deployed and managed web applications and services.",
+            "Ensured smooth UI alignment with backend business logic.",
         ],
     },
 ];

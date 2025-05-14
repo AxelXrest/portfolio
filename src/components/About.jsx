@@ -37,7 +37,7 @@ const About = () => {
         <h2 className={styles.sectionHeadText}>About Me.</h2>
       </motion.div>
       <motion.p variants={fadeIn("", "", 0.1, 1)} className='mt-4 text-secondary text-[17px] max-w-3xl leading-[30px]'>
-        I'm a skilled Frontend developer with experience in JavaScript, and expertise in frameworks like React.js, React Native, and Flutter. I'm a quick learner and can collaborate closely with clients to create efficient, scalable, and user-friendly solutions that solve real-world problems. Let's work together to bring your ideas to life!
+          Full Stack Developer (Frontend-Focused) skilled in crafting responsive UIs with React and Flutter, and integrating robust backend systems via .NET APIs. Strong in VPS hosting on Ubuntu using aaPanel, and experienced with FreeRADIUS setup for ISP solutions. Known for delivering clean, intuitive interfaces without compromising functionality.
       </motion.p>
       <div className=" sm:flex-1 justify-center mt-20 flex flex-wrap gap-10">
         {services.map((services, index) => (

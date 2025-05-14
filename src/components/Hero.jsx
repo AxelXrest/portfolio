@@ -5,7 +5,7 @@ import { styles } from '../styles';
 const Hero = () => {
   const [index, setIndex] = useState(0);
   const [showText, setShowText] = useState(false);
-  const messages = ['Web App Developer', "Mobile App Developer"];
+  const messages = ['Full Stack Developer', "React · API Integration · VPS Hosting"];
   useEffect(() => {
     const interval = setInterval(() => {
       setShowText(false);
