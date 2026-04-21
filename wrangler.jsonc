@@ -1,0 +1,7 @@
+{
+  "name": "portfolio",
+  "assets": {
+    "directory": "./dist" // This is the magic line
+  },
+  "compatibility_date": "2026-04-21"
+}
