@@ -27,7 +27,7 @@ const Hero = () => {
             <div className="w-1 sm:h-60 h-30 neon-gradient" />
           </div>
           <div>
-            <h1 className={`${styles.heroHeadText}`}>Hey, I'm <br /><span className="text-[#10ffcb]">Ajay Nemkul Shrestha</span></h1>
+            <h1 className={`${styles.heroHeadText}`}>Hey, I'm <br /><span className="text-[#10ffcb]">Ajaya Nemkul Shrestha</span></h1>
             <StyledHeroSubText className={`${styles.heroSubText} mt-2 text-white-100`}>
               {showText && (
                 <motion.div

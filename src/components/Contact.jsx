@@ -247,7 +247,7 @@ const Contact = () => {
               <ShowCurrentYear />
             </div>
             <div className="px-2 text-[12px]" >
-              <span className='font-bold'>Ajay Nemkul Shrestha</span>  | All Rights Reserved
+              <span className='font-bold'>Ajaya Nemkul Shrestha</span>  | All Rights Reserved
             </div>
           </div>
         </div>

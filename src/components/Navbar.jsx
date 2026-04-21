@@ -25,7 +25,7 @@ const Navbar = () => {
                         window.scrollTo(0, 0);
                     }}>
                     <img src={logo} alt="logo" className='w-10 h-10 object-contain' />
-                    <p className='text-white text-[18px] font-semibold flex cursor-pointer]'>Ajay Nemkul Shrestha</p>
+                    <p className='text-white text-[18px] font-semibold flex cursor-pointer]'>Ajaya Nemkul Shrestha</p>
                 </Link>
                 <ul className='list-none hidden sm:flex flex-row gap-10'>
                     {navLinks.map((Link) => (
