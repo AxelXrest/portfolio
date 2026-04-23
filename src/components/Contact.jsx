@@ -1,18 +1,20 @@
-import React, { useRef, useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
-import emailjs from "@emailjs/browser";
-import { socialIcons } from '../constants'
+import { socialIcons } from "../constants";
 import Tilt from "react-tilt";
-
 import { styles } from "../styles";
 import { SectionWrapper } from "../hoc";
 import { slideIn } from "../utils/motion";
-import LogoCanvas from "./canvas/logoCanvas";
 import { close } from "../assets";
-
+const FORM_SUBMIT_ENDPOINT =
+  "https://formsubmit.co/ajax/ajaynemkulshrestha@gmail.com";
+const EMPTY_ERRORS = {
+  name: "",
+  email: "",
+  message: "",
+};
 const Modal = ({ show, onClose, message }) => {
   if (!show) return null;
-
   return (
     <div className="fixed inset-0 backdrop-blur-md z-55 flex justify-center items-center">
       <div className="absolute inset-0 bg-gray-900 opacity-50"></div>
@@ -27,15 +29,15 @@ const Modal = ({ show, onClose, message }) => {
             className="w-[20px] h-[20px] object-contain cursor-pointer"
           />
         </button>
-        <p className="text-2xl p-6">{message}</p>
+        <p className="text-lg sm:text-2xl p-4 sm:p-6">{message}</p>
       </div>
     </div>
   );
 };
-
-const SocialIconsCanvas = ({ name, icon, socialLink, }) => {
+const SocialIconsCanvas = ({ name, icon, socialLink }) => {
   return (
-    <motion.div variants={slideIn("right", "tween", 0.5, 0.75)}
+    <motion.div
+      variants={slideIn("right", "tween", 0.5, 0.75)}
       onClick={() => window.open(socialLink, "_blank")}
       className='backdrop-blur-sm '
     >
@@ -46,28 +48,17 @@ const SocialIconsCanvas = ({ name, icon, socialLink, }) => {
           speed: 450,
         }}
         className=' bg-gradient-to-br flex items-center space-x-2 px-4 justify-center  hover:shadow-card shadow-gray-900 from-[#f9f9f921] to-[#0000008c] border-2 border-gray-500 p-3 rounded-xl '
-
       >
-        <div className='relative w-10 h-10'
-
-        >
-
-          <img
-            src={icon}
-            alt='image'
-            className=' w-full h-full object-cover'
-          />
+        <div className='relative w-10 h-10'>
+          <img src={icon} alt='image' className=' w-full h-full object-cover' />
         </div>
         <span className=' text-sm py-4 gap-3'>{name}</span>
-
-
       </Tilt>
     </motion.div>
-  )
-}
-
+  );
+};
+const ShowCurrentYear = () => <span>{new Date().getFullYear()}</span>;
 const Contact = () => {
-  const formRef = useRef();
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -75,90 +66,82 @@ const Contact = () => {
   });
   const [modalVisible, setModalVisible] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [formErrors, setFormErrors] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
-
+  const [formErrors, setFormErrors] = useState(EMPTY_ERRORS);
   const handleCloseModal = () => {
     setModalVisible(false);
     setForm({ name: "", email: "", message: "" });
+    setFormErrors(EMPTY_ERRORS);
   };
   const handleChange = (e) => {
-    const { target } = e;
-    const { name, value } = target;
-
-    setForm({
-      ...form,
+    const { name, value } = e.target;
+    setForm((currentForm) => ({
+      ...currentForm,
       [name]: value,
-    });
+    }));
+    if (formErrors[name]) {
+      setFormErrors((currentErrors) => ({
+        ...currentErrors,
+        [name]: "",
+      }));
+    }
   };
-
   const validateForm = () => {
-    const errors = {
-      name: "",
-      email: "",
-      message: "",
-    };
-
+    const errors = { ...EMPTY_ERRORS };
     if (!form.name) {
       errors.name = "Name is required";
     }
     if (!form.email) {
       errors.email = "Email is required";
-    } else if (
-      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(form.email)
-    ) {
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(form.email)) {
       errors.email = "Invalid email address";
     }
     if (!form.message) {
       errors.message = "Message is required";
     }
-
     setFormErrors(errors);
-
     return Object.values(errors).every((error) => !error);
   };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (!validateForm()) {
       return;
     }
-
     setLoading(true);
-
-    emailjs
-      .sendForm(
-        'service_p9f6cru',
-        'template_pau1n7j',
-        formRef.current,
-        '7BihA4PZxh5CQttQk'
-      )
-      .then(
-        () => {
-          setLoading(false);
-          setModalVisible(true);
+    try {
+      const payload = new FormData();
+      payload.append("name", form.name);
+      payload.append("email", form.email);
+      payload.append("message", form.message);
+      payload.append("_subject", `Portfolio contact from ${form.name}`);
+      payload.append("_captcha", "false");
+      payload.append("_template", "table");
+      const response = await fetch(FORM_SUBMIT_ENDPOINT, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
         },
-        (error) => {
-          setLoading(false);
-          console.error(error);
-
-          alert("Ahh, something went wrong. Please try again.");
-        }
-      );
-  };
-  class ShowCurrentYear extends React.Component {
-    render() {
-      return <div>{new Date().getFullYear()}</div>;
+        body: payload,
+      });
+      const result = await response.json().catch(() => null);
+      if (!response.ok) {
+        console.error(result?.message || "Failed to send message.");
+        alert("Ahh, something went wrong. Please try again.");
+        return;
+      }
+      setModalVisible(true);
+      setForm({ name: "", email: "", message: "" });
+      setFormErrors(EMPTY_ERRORS);
+    } catch (error) {
+      console.error(error);
+      alert("Ahh, something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
     }
-  }
+  };
   return (
     <div className="-mb-10">
       <div
-        className={`xl:mt-12 flex xl:flex-row flex-col-reverse gap-10 overflow-hidden`}
+        className={`xl:mt-12 flex xl:flex-row flex-col-reverse gap-10 overflow-visible`}
       >
         <motion.div
           variants={slideIn("left", "tween", 0.2, 1)}
@@ -166,23 +149,20 @@ const Contact = () => {
         >
           <p className={styles.sectionSubText}>Get in touch</p>
           <h3 className={styles.sectionHeadText}>Contact.</h3>
-
-          <form
-            ref={formRef}
-            onSubmit={handleSubmit}
-            className='mt-12 flex flex-col gap-8'
-          >
+          <form onSubmit={handleSubmit} className='mt-12 flex flex-col gap-8'>
             <label className='flex flex-col'>
               <span className='text-white font-medium mb-4'>Your Name</span>
               <input
                 type='text'
                 name='name'
                 value={form.name}
-
                 onChange={handleChange}
                 placeholder="What's your good name?"
                 className=' py-4 px-6 bg-[#ffffff18] border-2 border-gray-500 backdrop-blur-sm placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium'
               />
+              {formErrors.name && (
+                <span className="mt-2 text-sm text-red-300">{formErrors.name}</span>
+              )}
             </label>
             <label className='flex flex-col'>
               <span className='  text-white font-medium mb-4'>Your email</span>
@@ -191,9 +171,12 @@ const Contact = () => {
                 name='email'
                 value={form.email}
                 onChange={handleChange}
-                placeholder="What's your web address?"
+                placeholder="What's your email address?"
                 className='py-4 px-6 bg-[#ffffff18] border-2 backdrop-blur-sm border-gray-500 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium'
               />
+              {formErrors.email && (
+                <span className="mt-2 text-sm text-red-300">{formErrors.email}</span>
+              )}
             </label>
             <label className='flex flex-col'>
               <span className='text-white font-medium mb-4'>Your Message</span>
@@ -205,8 +188,17 @@ const Contact = () => {
                 placeholder='What you want to say?'
                 className='bg-[#ffffff18] border-2 backdrop-blur-sm border-gray-500 py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium'
               />
+              {formErrors.message && (
+                <span className="mt-2 text-sm text-red-300">
+                  {formErrors.message}
+                </span>
+              )}
             </label>
-
+            {formErrors.name || formErrors.email || formErrors.message ? (
+              <p className="-mt-2 text-sm text-red-400">
+                Please fix the highlighted fields above.
+              </p>
+            ) : null}
             <button
               type='submit'
               className='backdrop-blur-sm bg-[#ffffff18] py-3 px-8 rounded-xl hover:bg-[#0707071d] outline-none w-fit text-white font-bold shadow-md shadow-primary'
@@ -215,22 +207,37 @@ const Contact = () => {
             </button>
           </form>
         </motion.div>
-
         <motion.div
           variants={slideIn("right", "tween", 0.2, 1)}
-          className='xl:flex-1 xl:h-auto md:h-[750px] h-[550px] cursor-grab'
+          className='xl:flex-1 xl:h-auto h-auto'
         >
-          {/* <EarthCanvas /> */}
-          <LogoCanvas />
+          <div className='h-full backdrop-blur-sm bg-gradient-to-br from-[#fcfcfc22] border-2 border-gray-700 p-6 sm:p-8 rounded-2xl flex flex-col justify-between gap-6'>
+            <div>
+              <p className={styles.sectionSubText}>Open for work</p>
+              <h3 className='text-white text-[22px] sm:text-[28px] font-black'>Let's build something useful.</h3>
+            </div>
+
+            <div className='space-y-4 text-secondary text-[16px]'>
+              <p>
+                I create fast, responsive web apps and production-ready deployments.
+              </p>
+              <p>
+                Best way to reach me: <span className='text-white font-semibold'>ajaynemkulshrestha@gmail.com</span>
+              </p>
+            </div>
+
+            <a
+              href='mailto:ajaynemkulshrestha@gmail.com'
+              className='w-fit backdrop-blur-sm bg-[#ffffff18] py-3 px-6 sm:px-8 rounded-xl hover:bg-[#0707071d] text-white font-bold shadow-md shadow-primary'
+            >
+              Email Me Directly
+            </a>
+          </div>
         </motion.div>
-
-
-
       </div>
-      <div className='mt-12 backdrop-blur-sm' >
+      <div className='mt-12 backdrop-blur-sm'>
         <div className=' py-2 md:py-2'>
           <h3 className=' text-lg text-center font-bold'>
-
             I'm Social! Let's Connect and Collaborate
           </h3>
           <div className='flex flex-row flex-wrap justify-center gap-4 py-4 cursor-pointer'>
@@ -238,16 +245,13 @@ const Contact = () => {
               <SocialIconsCanvas key={`social-${index}`} index={index} {...social} />
             ))}
           </div>
-          <div className='flex  lg:mx-[400px] mx-[10px]  my-3 justify-center py-4 bg-[#ffffff1e] rounded-full border-2 border-gray-600'>
-            <div className="px-1 text-[12px]">
-              ©
-            </div>
+          <div className='flex flex-wrap max-w-3xl mx-auto px-4 my-3 justify-center py-4 bg-[#ffffff1e] rounded-2xl sm:rounded-full border-2 border-gray-600'>
+            <div className="px-1 text-[12px]">©</div>
             <div className="text-[12px]">
-
               <ShowCurrentYear />
             </div>
-            <div className="px-2 text-[12px]" >
-              <span className='font-bold'>Ajaya Nemkul Shrestha</span>  | All Rights Reserved
+            <div className="px-2 text-[12px]">
+              <span className='font-bold'>Ajaya Nemkul Shrestha</span> | All Rights Reserved
             </div>
           </div>
         </div>
@@ -260,5 +264,4 @@ const Contact = () => {
     </div>
   );
 };
-
 export default SectionWrapper(Contact, "contact");
