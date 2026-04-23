@@ -18,7 +18,7 @@ import {
     flexihire,
     pizzbizz,
     astralArch,
-    instagram,
+    // instagram,
     github, linkedin,
 } from "../assets/index";
 
@@ -244,11 +244,11 @@ const socialIcons = [
         icon: github,
         socialLink: 'https://github.com/AxelXrest'
     },
-    {
-        name: "Instagram",
-        icon: instagram,
-        socialLink: 'https://www.instagram.com/ajay.nemkul/'
-    },
+    // {
+    //     name: "Instagram",
+    //     icon: instagram,
+    //     socialLink: 'https://www.instagram.com/ajay.nemkul/'
+    // },
     {
         name: "LinkedIn",
         icon: linkedin,
