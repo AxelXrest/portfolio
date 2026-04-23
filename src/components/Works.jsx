@@ -3,7 +3,7 @@ import Tilt from "react-tilt";
 import { motion } from "framer-motion";
 
 import { styles } from "../styles";
-import { github, logo } from "../assets";
+import { logo } from "../assets";
 import { SectionWrapper } from "../hoc";
 import { projects } from "../constants";
 import { fadeIn, textVariant } from "../utils/motion";
@@ -24,10 +24,10 @@ const ProjectCard = ({
           scale: 1,
           speed: 450,
         }}
-        className='backdrop:blur-sm bg-gradient-to-br hover:shadow-card shadow-gray-900 from-[#f9f9f946] to-[#0000008c] border-2 border-gray-800 p-5 rounded-2xl sm:w-[360px] w-full'
+        className='backdrop:blur-sm bg-gradient-to-br hover:shadow-card shadow-gray-900 from-[#f9f9f946] to-[#0000008c] border-2 border-gray-800 p-4 sm:p-5 rounded-2xl sm:w-[360px] w-full'
       >
           <div
-              className="relative w-full h-[230px] cursor-pointer"
+              className="relative w-full h-[200px] sm:h-[230px] cursor-pointer"
               onClick={() => window.open(source_code_link, "_blank")}
           >
               <img
@@ -51,7 +51,7 @@ const ProjectCard = ({
           </div>
 
           <div className='mt-5'>
-              <h3 className='text-white font-bold text-[24px]'>{name}</h3>
+              <h3 className='text-white font-bold text-[20px] sm:text-[24px]'>{name}</h3>
               <p className='mt-2 text-secondary text-[14px]'>{description}</p>
         </div>
 
@@ -91,7 +91,7 @@ const Works = () => {
         </motion.p>
       </div>
 
-      <div className='mt-20 flex flex-wrap gap-7'>
+      <div className='mt-12 sm:mt-20 flex flex-wrap gap-7'>
         {projects.map((project, index) => (
           <ProjectCard key={`project-${index}`} index={index} {...project} />
         ))}

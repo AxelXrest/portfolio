@@ -1,4 +1,3 @@
-import React from "react";
 import {
   VerticalTimeline,
   VerticalTimelineElement,
@@ -6,11 +5,9 @@ import {
 import "react-vertical-timeline-component/style.min.css";
 import { experiences } from "../constants";
 import {motion} from "framer-motion";
-import Tilt from "react-tilt";
 import { styles } from "../styles";
-import { services } from "../constants/index";
 import { SectionWrapper } from "../hoc";
-import { fadeIn, textVariant } from "../utils/motion";
+import { textVariant } from "../utils/motion";
 const ExperienceCard = ({ experience }) => {
     return (
         <VerticalTimelineElement
@@ -36,9 +33,9 @@ const ExperienceCard = ({ experience }) => {
             date={experience.date}
         >
             <div>
-                <h3 className="text-white text-[24px] font-bold">{experience.title}</h3>
+                <h3 className="text-white text-[20px] sm:text-[24px] font-bold">{experience.title}</h3>
                 <p
-                    className="text-secondary text-[16px] font-semibold"
+                    className="text-secondary text-[14px] sm:text-[16px] font-semibold"
                     style={{ margin: 0 }}
                 >
                     {experience.company_name}
@@ -66,7 +63,7 @@ const Experience = () => {
                 <p className={styles.sectionSubText}>What I have done so far</p>
                 <h2 className={styles.sectionHeadText}>Work Experience.</h2>
             </motion.div>
-            <div className="mt-20 flex flex-col">
+            <div className="mt-12 sm:mt-20 flex flex-col">
                 <VerticalTimeline>
                     {experiences.map((experience, index) => (
                         <ExperienceCard
