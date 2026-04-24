@@ -14,7 +14,7 @@ const Tech = () => {
   };
 
   return (
-      <div className="flex flex-row flex-wrap justify-center gap-6 sm:gap-10">
+      <div className="flex flex-row flex-wrap justify-center gap-5 sm:gap-10">
         {technologies.map((technology, index) => (
             <div
                 className="w-20 h-20 xs:w-24 xs:h-24 sm:w-28 sm:h-28 mb-2 relative"
@@ -22,7 +22,7 @@ const Tech = () => {
                 onMouseEnter={() => handleMouseEnter(index, technology.name)}
                 onMouseLeave={handleMouseLeave}
             >
-              <div>
+              <div className="w-full h-full">
                 <BallCanvas icon={technology.icon} />
               </div>
 

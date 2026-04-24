@@ -67,10 +67,12 @@ const Contact = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [formErrors, setFormErrors] = useState(EMPTY_ERRORS);
+  const [submitStatus, setSubmitStatus] = useState({ type: "", message: "" });
   const handleCloseModal = () => {
     setModalVisible(false);
     setForm({ name: "", email: "", message: "" });
     setFormErrors(EMPTY_ERRORS);
+    setSubmitStatus({ type: "", message: "" });
   };
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -83,6 +85,9 @@ const Contact = () => {
         ...currentErrors,
         [name]: "",
       }));
+    }
+    if (submitStatus.message) {
+      setSubmitStatus({ type: "", message: "" });
     }
   };
   const validateForm = () => {
@@ -104,9 +109,11 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) {
+      setSubmitStatus({ type: "error", message: "Please complete all required fields correctly." });
       return;
     }
     setLoading(true);
+    setSubmitStatus({ type: "", message: "" });
     try {
       const payload = new FormData();
       payload.append("name", form.name);
@@ -125,27 +132,37 @@ const Contact = () => {
       const result = await response.json().catch(() => null);
       if (!response.ok) {
         console.error(result?.message || "Failed to send message.");
-        alert("Ahh, something went wrong. Please try again.");
+        setSubmitStatus({
+          type: "error",
+          message: "Message could not be sent right now. Please try again in a moment.",
+        });
         return;
       }
       setModalVisible(true);
       setForm({ name: "", email: "", message: "" });
       setFormErrors(EMPTY_ERRORS);
+      setSubmitStatus({
+        type: "success",
+        message: "Message sent successfully. Thank you for reaching out.",
+      });
     } catch (error) {
       console.error(error);
-      alert("Ahh, something went wrong. Please try again.");
+      setSubmitStatus({
+        type: "error",
+        message: "Network error while sending. Please check your connection and retry.",
+      });
     } finally {
       setLoading(false);
     }
   };
   return (
-    <div className="-mb-10">
+    <div className="-mb-10 overflow-x-hidden">
       <div
-        className={`xl:mt-12 flex xl:flex-row flex-col-reverse gap-10 overflow-visible`}
+        className={`xl:mt-12 flex xl:flex-row flex-col-reverse gap-10 min-w-0 overflow-x-hidden overflow-y-visible`}
       >
         <motion.div
           variants={slideIn("left", "tween", 0.2, 1)}
-          className='flex-[0.75]  backdrop-blur-sm bg-gradient-to-br from-[#fcfcfc22] border-2 border-gray-700  p-8 rounded-2xl'
+          className='flex-[0.75] w-full min-w-0 glass-panel p-8 rounded-2xl'
         >
           <p className={styles.sectionSubText}>Get in touch</p>
           <h3 className={styles.sectionHeadText}>Contact.</h3>
@@ -158,7 +175,7 @@ const Contact = () => {
                 value={form.name}
                 onChange={handleChange}
                 placeholder="What's your good name?"
-                className=' py-4 px-6 bg-[#ffffff18] border-2 border-gray-500 backdrop-blur-sm placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium'
+                className='input-glass py-4 px-6 placeholder:text-secondary rounded-lg outline-none font-medium'
               />
               {formErrors.name && (
                 <span className="mt-2 text-sm text-red-300">{formErrors.name}</span>
@@ -172,7 +189,7 @@ const Contact = () => {
                 value={form.email}
                 onChange={handleChange}
                 placeholder="What's your email address?"
-                className='py-4 px-6 bg-[#ffffff18] border-2 backdrop-blur-sm border-gray-500 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium'
+                className='input-glass py-4 px-6 placeholder:text-secondary rounded-lg outline-none font-medium'
               />
               {formErrors.email && (
                 <span className="mt-2 text-sm text-red-300">{formErrors.email}</span>
@@ -186,7 +203,7 @@ const Contact = () => {
                 value={form.message}
                 onChange={handleChange}
                 placeholder='What you want to say?'
-                className='bg-[#ffffff18] border-2 backdrop-blur-sm border-gray-500 py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium'
+                className='input-glass py-4 px-6 placeholder:text-secondary rounded-lg outline-none font-medium'
               />
               {formErrors.message && (
                 <span className="mt-2 text-sm text-red-300">
@@ -199,9 +216,15 @@ const Contact = () => {
                 Please fix the highlighted fields above.
               </p>
             ) : null}
+            {submitStatus.message ? (
+              <p className={`-mt-2 text-sm ${submitStatus.type === "success" ? "text-[#10ffcb]" : "text-red-400"}`}>
+                {submitStatus.message}
+              </p>
+            ) : null}
             <button
               type='submit'
-              className='backdrop-blur-sm bg-[#ffffff18] py-3 px-8 rounded-xl hover:bg-[#0707071d] outline-none w-fit text-white font-bold shadow-md shadow-primary'
+              disabled={loading}
+              className='btn-primary py-3 px-8 rounded-xl outline-none w-fit font-bold shadow-md shadow-primary disabled:opacity-60 disabled:cursor-not-allowed'
             >
               {loading ? "Sending..." : "Send"}
             </button>
@@ -209,9 +232,9 @@ const Contact = () => {
         </motion.div>
         <motion.div
           variants={slideIn("right", "tween", 0.2, 1)}
-          className='xl:flex-1 xl:h-auto h-auto'
+          className='xl:flex-1 xl:h-auto h-auto w-full min-w-0'
         >
-          <div className='h-full backdrop-blur-sm bg-gradient-to-br from-[#fcfcfc22] border-2 border-gray-700 p-6 sm:p-8 rounded-2xl flex flex-col justify-between gap-6'>
+          <div className='h-full glass-panel p-6 sm:p-8 rounded-2xl flex flex-col justify-between gap-6'>
             <div>
               <p className={styles.sectionSubText}>Open for work</p>
               <h3 className='text-white text-[22px] sm:text-[28px] font-black'>Let's build something useful.</h3>
@@ -228,7 +251,7 @@ const Contact = () => {
 
             <a
               href='mailto:ajaynemkulshrestha@gmail.com'
-              className='w-fit backdrop-blur-sm bg-[#ffffff18] py-3 px-6 sm:px-8 rounded-xl hover:bg-[#0707071d] text-white font-bold shadow-md shadow-primary'
+              className='w-fit btn-ghost py-3 px-6 sm:px-8 rounded-xl font-bold shadow-md shadow-primary'
             >
               Email Me Directly
             </a>

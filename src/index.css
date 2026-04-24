@@ -13,6 +13,65 @@
   color-scheme: dark;
 }
 
+html,
+body,
+#root {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.glass-panel {
+  backdrop-filter: blur(12px);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.14), rgba(0, 0, 0, 0.45));
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.22);
+}
+
+.glass-card {
+  backdrop-filter: blur(10px);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.38));
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary {
+  backdrop-filter: blur(8px);
+  background: rgba(16, 255, 203, 0.14);
+  border: 1px solid rgba(16, 255, 203, 0.45);
+  color: #ffffff;
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+  background: rgba(16, 255, 203, 0.24);
+  transform: translateY(-1px);
+}
+
+.btn-ghost {
+  backdrop-filter: blur(8px);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  color: #ffffff;
+  transition: all 0.2s ease;
+}
+
+.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.input-glass {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(148, 163, 184, 0.45);
+  color: #ffffff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input-glass:focus {
+  border-color: rgba(16, 255, 203, 0.75);
+  box-shadow: 0 0 0 2px rgba(16, 255, 203, 0.18);
+}
+
 .hash-span {
   margin-top: -100px;
   padding-bottom: 100px;

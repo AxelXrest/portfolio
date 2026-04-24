@@ -10,8 +10,8 @@ import {
 
 import CanvasLoader from "../Loader";
 
-const Ball = (props) => {
-  const [decal] = useTexture([props.imgUrl]);
+const Ball = ({ imgUrl }) => {
+  const [decal] = useTexture([imgUrl]);
 
   return (
     <Float speed={0.5} rotationIntensity={1} floatingRange={1}>
@@ -37,14 +37,14 @@ const Ball = (props) => {
         <Decal
           position={[1, 0, 0]}
           rotation={[0 * Math.PI, 2, 0]}
-          scale={0.8}
+          scale={0.9}
           map={decal}
           flatShading
         />
         <Decal
           position={[-1, 0, 0]}
           rotation={[0, -Math.PI / 2, 0]}
-          scale={0.8}
+          scale={0.9}
           map={decal}
           flatShading
         />
@@ -53,14 +53,14 @@ const Ball = (props) => {
           // rotation={[Math.PI / 1, 0, 0]}
           rotation={[0, Math.PI / 1, 0]}
 
-          scale={0.8}
+          scale={0.9}
           map={decal}
           flatShading
         />
         <Decal
           position={[0, 0, -1]}
           rotation={[0, -Math.PI / 1, 0]}
-          scale={0.8}
+          scale={0.9}
           map={decal}
           flatShading
         />

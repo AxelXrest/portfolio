@@ -16,30 +16,34 @@ const ProjectCard = ({
   image,
   source_code_link,
 }) => {
+  const openProject = () => window.open(source_code_link, "_blank");
+
   return (
     <motion.div variants={fadeIn("up", "spring", index * 0.5, 0.75)}>
       <Tilt
         options={{
-          max: 45,
+          max: 28,
           scale: 1,
           speed: 450,
         }}
-        className='backdrop:blur-sm bg-gradient-to-br hover:shadow-card shadow-gray-900 from-[#f9f9f946] to-[#0000008c] border-2 border-gray-800 p-4 sm:p-5 rounded-2xl sm:w-[360px] w-full'
+        className='group glass-card hover:shadow-card shadow-gray-900 p-4 sm:p-5 rounded-2xl sm:w-[360px] w-full transition-all duration-300'
       >
           <div
-              className="relative w-full h-[200px] sm:h-[230px] cursor-pointer"
-              onClick={() => window.open(source_code_link, "_blank")}
+              className="relative w-full h-[200px] sm:h-[230px] cursor-pointer overflow-hidden rounded-2xl"
+              onClick={openProject}
           >
               <img
                   src={image}
                   alt='project_image'
-                  className='w-full h-full object-cover rounded-2xl'
+                  className='w-full h-full object-cover rounded-2xl transition-transform duration-500 group-hover:scale-105'
               />
+
+              <div className='absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-90 transition-opacity duration-300 group-hover:opacity-100' />
 
               <div className='absolute inset-0 flex justify-end m-3 card-img_hover'>
                   <div
-                      onClick={() => window.open(source_code_link, "_blank")}
-                      className='black-gradient w-10 h-10 rounded-full flex justify-center items-center cursor-pointer'
+                      onClick={openProject}
+                      className='btn-ghost w-10 h-10 rounded-full flex justify-center items-center cursor-pointer'
                   >
                       <img
                           src={logo}
@@ -47,6 +51,10 @@ const ProjectCard = ({
                           className='w-8 h-8 object-contain'
                       />
                   </div>
+              </div>
+
+              <div className='absolute left-3 bottom-3'>
+                <span className='btn-primary text-xs font-semibold rounded-full px-3 py-1'>View Project</span>
               </div>
           </div>
 
@@ -59,7 +67,7 @@ const ProjectCard = ({
           {tags.map((tag) => (
             <p
               key={`${name}-${tag.name}`}
-              className={`text-[14px] ${tag.color} `}
+              className={`text-[12px] ${tag.color} px-2 py-1 rounded-full bg-[#ffffff14] border border-[#ffffff24]`}
             >
               #{tag.name}
             </p>
