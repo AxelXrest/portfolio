@@ -5,7 +5,7 @@ import Tilt from "react-tilt";
 import { styles } from "../styles";
 import { SectionWrapper } from "../hoc";
 import { slideIn } from "../utils/motion";
-import { close } from "../assets";
+import { close, github_dark } from "../assets";
 const FORM_SUBMIT_ENDPOINT =
   "https://formsubmit.co/ajax/ajaynemkulshrestha@gmail.com";
 const EMPTY_ERRORS = {
@@ -16,11 +16,11 @@ const EMPTY_ERRORS = {
 const Modal = ({ show, onClose, message }) => {
   if (!show) return null;
   return (
-    <div className="fixed inset-0 backdrop-blur-md z-55 flex justify-center items-center">
-      <div className="absolute inset-0 bg-gray-900 opacity-50"></div>
-      <div className="m-6 backdrop-blur-[40px] bg-gradient-to-br from-[#ffffff27] to-[#0000008c] border-2 border-gray-700 rounded-md p-8">
+    <div className="fixed inset-0 backdrop-blur-md z-[55] flex justify-center items-center">
+      <div className="absolute inset-0 bg-black/50"></div>
+      <div className="m-6 glass-panel rounded-md p-8 relative">
         <button
-          className="absolute text-white top-0 right-0 p-4"
+          className="absolute theme-text-primary top-0 right-0 p-4"
           onClick={onClose}
         >
           <img
@@ -29,7 +29,7 @@ const Modal = ({ show, onClose, message }) => {
             className="w-[20px] h-[20px] object-contain cursor-pointer"
           />
         </button>
-        <p className="text-lg sm:text-2xl p-4 sm:p-6">{message}</p>
+        <p className="theme-text-primary text-lg sm:text-2xl p-4 sm:p-6">{message}</p>
       </div>
     </div>
   );
@@ -47,18 +47,19 @@ const SocialIconsCanvas = ({ name, icon, socialLink }) => {
           scale: 1,
           speed: 450,
         }}
-        className=' bg-gradient-to-br flex items-center space-x-2 px-4 justify-center  hover:shadow-card shadow-gray-900 from-[#f9f9f921] to-[#0000008c] border-2 border-gray-500 p-3 rounded-xl '
+        className='glass-card flex items-center space-x-2 px-4 justify-center hover:shadow-card p-3 rounded-xl '
       >
         <div className='relative w-10 h-10'>
           <img src={icon} alt='image' className=' w-full h-full object-cover' />
         </div>
-        <span className=' text-sm py-4 gap-3'>{name}</span>
+        <span className='theme-text-primary text-sm py-4 gap-3'>{name}</span>
       </Tilt>
     </motion.div>
   );
 };
 const ShowCurrentYear = () => <span>{new Date().getFullYear()}</span>;
-const Contact = () => {
+const Contact = ({ theme }) => {
+  const isDarkMode = theme !== 'light';
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -155,6 +156,11 @@ const Contact = () => {
       setLoading(false);
     }
   };
+  const displaySocialIcons = socialIcons.map((social) =>
+    social.name === "GitHub"
+      ? { ...social, icon: isDarkMode ? social.icon : github_dark }
+      : social
+  );
   return (
     <div className="-mb-10 overflow-x-hidden">
       <div
@@ -168,42 +174,42 @@ const Contact = () => {
           <h3 className={styles.sectionHeadText}>Contact.</h3>
           <form onSubmit={handleSubmit} className='mt-12 flex flex-col gap-8'>
             <label className='flex flex-col'>
-              <span className='text-white font-medium mb-4'>Your Name</span>
+              <span className='theme-text-primary font-medium mb-4'>Your Name</span>
               <input
                 type='text'
                 name='name'
                 value={form.name}
                 onChange={handleChange}
                 placeholder="What's your good name?"
-                className='input-glass py-4 px-6 placeholder:text-secondary rounded-lg outline-none font-medium'
+                className='input-glass py-4 px-6 placeholder:text-[color:var(--text-muted)] rounded-lg outline-none font-medium'
               />
               {formErrors.name && (
                 <span className="mt-2 text-sm text-red-300">{formErrors.name}</span>
               )}
             </label>
             <label className='flex flex-col'>
-              <span className='  text-white font-medium mb-4'>Your email</span>
+              <span className='theme-text-primary font-medium mb-4'>Your email</span>
               <input
                 type='email'
                 name='email'
                 value={form.email}
                 onChange={handleChange}
                 placeholder="What's your email address?"
-                className='input-glass py-4 px-6 placeholder:text-secondary rounded-lg outline-none font-medium'
+                className='input-glass py-4 px-6 placeholder:text-[color:var(--text-muted)] rounded-lg outline-none font-medium'
               />
               {formErrors.email && (
                 <span className="mt-2 text-sm text-red-300">{formErrors.email}</span>
               )}
             </label>
             <label className='flex flex-col'>
-              <span className='text-white font-medium mb-4'>Your Message</span>
+              <span className='theme-text-primary font-medium mb-4'>Your Message</span>
               <textarea
                 rows={7}
                 name='message'
                 value={form.message}
                 onChange={handleChange}
                 placeholder='What you want to say?'
-                className='input-glass py-4 px-6 placeholder:text-secondary rounded-lg outline-none font-medium'
+                className='input-glass py-4 px-6 placeholder:text-[color:var(--text-muted)] rounded-lg outline-none font-medium'
               />
               {formErrors.message && (
                 <span className="mt-2 text-sm text-red-300">
@@ -237,15 +243,15 @@ const Contact = () => {
           <div className='h-full glass-panel p-6 sm:p-8 rounded-2xl flex flex-col justify-between gap-6'>
             <div>
               <p className={styles.sectionSubText}>Open for work</p>
-              <h3 className='text-white text-[22px] sm:text-[28px] font-black'>Let's build something useful.</h3>
+              <h3 className='theme-text-primary text-[22px] sm:text-[28px] font-black'>Let's build something useful.</h3>
             </div>
 
-            <div className='space-y-4 text-secondary text-[16px]'>
+            <div className='space-y-4 theme-text-secondary text-[16px]'>
               <p>
                 I create fast, responsive web apps and production-ready deployments.
               </p>
               <p>
-                Best way to reach me: <span className='text-white font-semibold'>ajaynemkulshrestha@gmail.com</span>
+                Best way to reach me: <span className='theme-text-primary font-semibold'>ajaynemkulshrestha@gmail.com</span>
               </p>
             </div>
 
@@ -260,20 +266,20 @@ const Contact = () => {
       </div>
       <div className='mt-12 backdrop-blur-sm'>
         <div className=' py-2 md:py-2'>
-          <h3 className=' text-lg text-center font-bold'>
+          <h3 className=' theme-text-primary text-lg text-center font-bold'>
             I'm Social! Let's Connect and Collaborate
           </h3>
           <div className='flex flex-row flex-wrap justify-center gap-4 py-4 cursor-pointer'>
-            {socialIcons.map((social, index) => (
+            {displaySocialIcons.map((social, index) => (
               <SocialIconsCanvas key={`social-${index}`} index={index} {...social} />
             ))}
           </div>
-          <div className='flex flex-wrap max-w-3xl mx-auto px-4 my-3 justify-center py-4 bg-[#ffffff1e] rounded-2xl sm:rounded-full border-2 border-gray-600'>
-            <div className="px-1 text-[12px]">©</div>
-            <div className="text-[12px]">
+          <div className='flex flex-wrap max-w-3xl mx-auto px-4 my-3 justify-center py-4 glass-panel rounded-2xl sm:rounded-full'>
+            <div className="px-1 text-[12px] theme-text-secondary">©</div>
+            <div className="text-[12px] theme-text-secondary">
               <ShowCurrentYear />
             </div>
-            <div className="px-2 text-[12px]">
+            <div className="px-2 text-[12px] theme-text-secondary">
               <span className='font-bold'>Ajaya Nemkul Shrestha</span> | All Rights Reserved
             </div>
           </div>

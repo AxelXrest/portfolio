@@ -37,14 +37,14 @@ const Hero = () => {
   return (
     <StyledHero>
       <div className={`${styles.paddingX} backdrop-blur-sm absolute inset-0 top-[180px] sm:top-[220px] lg:top-[260px] max-w-7xl mx-auto flex flex-row`}>
-        <div className='bg-gradient-to-br w-full h-fit backdrop:blur-lg from-[#ffffff25] to-[#05050521] border-2 border-gray-500 lg:px-8 px-4 py-6 rounded-xl flex flex-row items-start lg:space-x-6 space-x-4'>
+        <div className='theme-panel w-full h-fit lg:px-8 px-4 py-6 rounded-xl flex flex-row items-start lg:space-x-6 space-x-4'>
           <div className="flex flex-col items-center mt-2 self-stretch">
             <div className="w-5 h-5 rounded-full bg-[#10ffcb]" />
             <div className="w-1 flex-1 min-h-[80px] sm:min-h-[120px] neon-gradient" />
           </div>
           <div>
             <h1 className={`${styles.heroHeadText}`}>Hey, I'm <br /><span className="text-[#10ffcb]">Ajaya Nemkul Shrestha</span></h1>
-            <StyledHeroSubText className={`${styles.heroSubText} mt-2 text-white-100`}>
+            <StyledHeroSubText className={`${styles.heroSubText} mt-2 theme-text-secondary`}>
               <span>{displayText}</span>
               <span className='cursor'>|</span>
             </StyledHeroSubText>

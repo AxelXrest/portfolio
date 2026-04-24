@@ -27,7 +27,7 @@ const Tech = () => {
               </div>
 
               {toottipTexts[index] && (
-                  <div className="absolute bg-black bg-opacity-80 text-white px-2 py-1 rounded text-xs sm:text-sm z-10 bottom-[90%] left-1/2 transform -translate-x-1/2 max-w-[140px] text-center whitespace-normal">
+                  <div className="absolute theme-panel px-2 py-1 rounded text-xs sm:text-sm z-10 bottom-[90%] left-1/2 transform -translate-x-1/2 max-w-[140px] text-center whitespace-normal">
                     {toottipTexts[index]}
                   </div>
               )}

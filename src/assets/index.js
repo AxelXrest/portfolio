@@ -7,6 +7,7 @@ import host from "./about/hosting.png";
 
 import instagram from "./socials/instagram.png";
 import github from "./socials/github.png";
+import github_dark from "./socials/github_dark.png";
 import linkedin from "./socials/linkedin.png";
 
 import menu from "./menu.svg";
@@ -42,6 +43,7 @@ export {
   close,
   aaPanel,
   github,
+  github_dark,
   reactjs,
   flutter,
   nginx,

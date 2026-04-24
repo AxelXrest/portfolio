@@ -3,8 +3,25 @@
 
 <head>
   <meta charset="UTF-8" />
+  <meta name="color-scheme" content="dark light" />
   <link rel="icon" type="image" href="./src/assets/logo.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>
+    (function () {
+      try {
+        var storedTheme = localStorage.getItem('portfolio-theme');
+        var theme = storedTheme === 'light' || storedTheme === 'dark'
+          ? storedTheme
+          : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+      } catch (error) {
+        document.documentElement.dataset.theme = 'dark';
+        document.documentElement.style.colorScheme = 'dark';
+      }
+    })();
+  </script>
   <title>Portfolio | Ajay</title>
 </head>
 
