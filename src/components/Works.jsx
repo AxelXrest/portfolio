@@ -53,9 +53,6 @@ const ProjectCard = ({
                   </div>
               </div>
 
-              <div className='absolute left-3 bottom-3'>
-                <span className='btn-primary text-xs font-semibold rounded-full px-3 py-1'>View Project</span>
-              </div>
           </div>
 
           <div className='mt-5'>
