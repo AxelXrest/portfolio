@@ -31,7 +31,7 @@ import flexihire from "./project/flexihire.png";
 import pizzbizz from "./project/pizzbizz.png";
 import astralArch from "./project/astralArch.png";
 
-import cv from "./cv/Ajay Nemkul Shrestha.pdf";
+import cv from "./cv/Ajaya Nemkul Shrestha.pdf";
 
 export {
   logo,
