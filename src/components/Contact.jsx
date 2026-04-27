@@ -223,7 +223,7 @@ const Contact = ({ theme }) => {
               </p>
             ) : null}
             {submitStatus.message ? (
-              <p className={`-mt-2 text-sm ${submitStatus.type === "success" ? "text-[#10ffcb]" : "text-red-400"}`}>
+              <p className={`-mt-2 text-sm ${submitStatus.type === "success" ? "text-[color:var(--accent)]" : "text-red-400"}`}>
                 {submitStatus.message}
               </p>
             ) : null}
@@ -232,7 +232,9 @@ const Contact = ({ theme }) => {
               disabled={loading}
               className='btn-primary py-3 px-8 rounded-xl outline-none w-fit font-bold shadow-md shadow-primary disabled:opacity-60 disabled:cursor-not-allowed'
             >
+              <span className='w-fit text-[color:var(--accent)]'>
               {loading ? "Sending..." : "Send"}
+              </span>
             </button>
           </form>
         </motion.div>

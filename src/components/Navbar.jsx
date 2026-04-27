@@ -54,7 +54,7 @@ const Navbar = ({ theme, onToggleTheme }) => {
                         <li
                             key={item.id}
                             className={`${active === item.title
-                                ? "text-[#10ffcb]"  // This sets the active color to #10ffcb
+                                ? "text-[color:var(--accent)]"
                                         : "theme-nav-link"} text-[15px] leading-none font-medium transition-all ease-in-out`}
                             onClick={() => setActive(item.title)}
                         >
@@ -122,7 +122,7 @@ const Navbar = ({ theme, onToggleTheme }) => {
                                 <li
                                     key={item.id}
                                     className={`${active === item.title
-                                        ? "text-[#10ffcb]"  // This sets the active color to #10ffcb for mobile menu
+                                        ? "text-[color:var(--accent)]"
                                         : "text-[color:var(--text-primary)]"} font-poppins font-semibold drop-shadow-[0_1px_2px_rgba(0,0,0,0.55)] transition-all ease-in-out text-[16px]`}
                                     onClick={() => {
                                         setActive(item.title);
