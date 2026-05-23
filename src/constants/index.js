@@ -137,7 +137,7 @@ const experiences = [
         company_name: "Doppler Trade PVT LTD",
         icon: dopplerLogo,
         iconBg: "#f0f0f0",
-        date: "2025 - Present",
+        date: "2025 - 2026",
         points: [
             "Worked on an Internet Service Provider (ISP) platform that delivers internet access via hotspot vouchers.",
             "Contributed to an Internet Service Provider (ISP) platform using FreeRADIUS to manage internet access through hotspot vouchers.",
